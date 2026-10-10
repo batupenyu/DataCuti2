@@ -149,7 +149,7 @@ def load_pegawai(path_or_buffer):
     df = pd.read_excel(path_or_buffer)
     df.columns = [str(c).strip().upper() for c in df.columns]
 
-    for col in ("NAMA", "NIP", "GOL", "PANGKAT", "JABATAN"):
+    for col in ("NAMA", "NIP", "GOL", "PANGKAT", "JABATAN", "CONTACT", "ALAMAT"):
         if col not in df.columns:
             df[col] = ""
 
@@ -164,7 +164,15 @@ def get_pegawai_info(pegawai_df, nama):
     Golongan dibersihkan dari duplikasi, mis.
     'Penata Tingkat I, III/d, III/d' -> 'Penata Tingkat I, III/d'.
     """
-    kosong = {"nama": nama, "nip": "-", "gol": "-", "pangkat": "-", "jabatan": "-"}
+    kosong = {
+        "nama": nama,
+        "nip": "-",
+        "gol": "-",
+        "pangkat": "-",
+        "jabatan": "-",
+        "contact": "",
+        "alamat": "",
+    }
     if pegawai_df is None or pegawai_df.empty:
         return kosong
     key = _norm_nama(nama)
@@ -178,6 +186,8 @@ def get_pegawai_info(pegawai_df, nama):
         "gol": _bersihkan_duplikat_gol(r["GOL"]),
         "pangkat": str(r["PANGKAT"]) if pd.notna(r["PANGKAT"]) else "-",
         "jabatan": str(r["JABATAN"]) if pd.notna(r["JABATAN"]) else "-",
+        "contact": str(r["CONTACT"]) if pd.notna(r["CONTACT"]) else "",
+        "alamat": str(r["ALAMAT"]) if pd.notna(r["ALAMAT"]) else "",
     }
 
 

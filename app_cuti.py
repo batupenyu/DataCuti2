@@ -411,6 +411,15 @@ elif menu == "✉️ Surat Cuti":
         else:
             # 1) Ambil info master pegawai
             info = adc.get_pegawai_info(pegawai_df, nama_pilihan)
+            master_row = pegawai_df[
+                pegawai_df["NAMA"].astype(str).str.casefold()
+                == nama_pilihan.casefold()
+            ]
+            master_data = master_row.iloc[0] if not master_row.empty else {}
+            alamat_master = info.get("alamat", master_data.get("ALAMAT", ""))
+            kontak_master = info.get("contact", master_data.get("CONTACT", ""))
+            alamat_master = "" if pd.isna(alamat_master) else str(alamat_master)
+            kontak_master = "" if pd.isna(kontak_master) else str(kontak_master)
 
             # 2) Ambil data cuti terakhir dari data.xlsx
             last = adc.get_last_cuti_untuk_nama(
@@ -425,6 +434,8 @@ elif menu == "✉️ Surat Cuti":
             )
             st.session_state.form_surat["jabatan"] = info["jabatan"]
             st.session_state.form_surat["unit_kerja"] = adc.UNIT_KERJA_DEFAULT
+            st.session_state.form_surat["alamat"] = alamat_master
+            st.session_state.form_surat["kontak"] = kontak_master
             st.session_state.selected_pegawai = nama_pilihan
 
             if last:
