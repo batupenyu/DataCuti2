@@ -99,7 +99,7 @@ menu = st.sidebar.radio(
 )
 
 st.sidebar.markdown("---")
-if st.sidebar.button("🔄 Refresh Data", use_container_width=True):
+if st.sidebar.button("🔄 Refresh Data", width="stretch"):
     st.cache_data.clear()
     st.rerun()
 
@@ -146,7 +146,7 @@ if menu == "📄 Data Cuti":
     st.write(f"Menampilkan **{len(df_view)}** record")
     st.dataframe(
         df_view,
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
         column_config={
             "No": _int_col("No"),
@@ -206,7 +206,7 @@ elif menu == "📊 Rekap Cuti":
     st.write(f"Menampilkan **{len(df_view)}** record")
     st.dataframe(
         df_view,
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
         column_config={
             "No": _int_col("No"),
@@ -280,7 +280,7 @@ elif menu == "🗂️ Kartu Kendali":
             st.markdown("### Tabel Kartu Kendali")
             st.dataframe(
                 kartu,
-                use_container_width=True,
+                width="stretch",
                 hide_index=True,
                 column_config={
                     "No": _int_col("No"),
@@ -299,7 +299,7 @@ elif menu == "🗂️ Kartu Kendali":
             safe = "".join(c if c.isalnum() else "_" for c in str(info["nama"])).strip("_")
             path_pdf = os.path.join(OUTPUT_DIR, f"kartu_kendali_{tahun}_{safe}.pdf")
 
-            if st.button("📄 Generate PDF Kartu Kendali", use_container_width=True):
+            if st.button("📄 Generate PDF Kartu Kendali", width="stretch"):
                 with st.spinner("Membuat PDF..."):
                     adc.generate_pdf(
                         kartu,
@@ -318,7 +318,7 @@ elif menu == "🗂️ Kartu Kendali":
                         f,
                         file_name=os.path.basename(path_pdf),
                         mime="application/pdf",
-                        use_container_width=True,
+                        width="stretch",
                     )
 
     st.markdown("---")
@@ -331,7 +331,7 @@ elif menu == "🗂️ Kartu Kendali":
     with col_b:
         bersihkan = st.checkbox("Hapus folder lama sebelum generate", value=False)
 
-    if st.button("📦 Generate Semua Kartu Kendali", use_container_width=True):
+    if st.button("📦 Generate Semua Kartu Kendali", width="stretch"):
         with st.spinner("Membuat semua kartu kendali..."):
             pdfs = adc.generate_semua_kartu(
                 tahun=int(tahun_semua),
@@ -401,7 +401,7 @@ elif menu == "✉️ Surat Cuti":
     with col_btn1:
         klik_isi = st.button(
             "🔄 Isi Otomatis dari Master",
-            use_container_width=True,
+            width="stretch",
             type="primary",
         )
 
@@ -515,7 +515,7 @@ elif menu == "✉️ Surat Cuti":
         st.markdown("---")
         submit = st.form_submit_button(
             "📄 Buat Surat Cuti PDF",
-            use_container_width=True,
+            width="stretch",
             type="primary",
         )
 
@@ -574,7 +574,7 @@ elif menu == "✉️ Surat Cuti":
                     f,
                     file_name=os.path.basename(path_pdf),
                     mime="application/pdf",
-                    use_container_width=True,
+                    width="stretch",
                 )
         except Exception as e:
             st.error(f"Gagal membuat surat cuti: {e}")
