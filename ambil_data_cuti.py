@@ -440,6 +440,7 @@ def generate_pdf(kartu, nama, nip, pangkat, jabatan, unit_kerja, tahun, path_out
     def _esc(s):
         return str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
+
     rows_html = ""
     for _, r in kartu.iterrows():
         rows_html += "<tr>"
@@ -522,15 +523,10 @@ def generate_pdf(kartu, nama, nip, pangkat, jabatan, unit_kerja, tahun, path_out
 </tbody>
 </table>
 <div class="footer-wrap">
-<table class="legend">
+<table>
 <tr><td>ATB</td><td>: Akumulasi Sisa Tahun Berjalan</td></tr>
 <tr><td>LHC</td><td>: Lama Hari Cuti</td></tr>
 <tr><td>STB</td><td>: Sisa Cuti Tahun Berjalan</td></tr>
-<tr><td>Alokasi Awal</td><td></td></tr>
-<tr><td>Tahun N</td><td>: 12</td></tr>
-<tr><td>Tahun N-1</td><td>: 6</td></tr>
-<tr><td>Tahun N-2</td><td>: 6</td></tr>
-<tr><td>Total Alokasi Awal</td><td>: 24</td></tr>
 </table>
 <div class="footer">
 Mengetahui,<br>
